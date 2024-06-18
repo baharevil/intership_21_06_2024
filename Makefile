@@ -35,3 +35,4 @@ $(target): $(objects)
 
 clean:
 	@rm -rf build/*
+	@rm -rf $(target)
