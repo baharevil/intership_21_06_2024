@@ -1,4 +1,5 @@
 #include <errno.h>
+#include <malloc.h>
 #include <stdio.h>
 
 #include "firewall.h"
@@ -17,16 +18,29 @@ int main (int argc, char *argv[]) {
   if (!code)
     code = get_runtime(&runtime, argc, argv);
 
+  if (!code) {
+    code = get_rules(&runtime);
+  }
+
+  if (!code && runtime.print) {
+    print_rules(&runtime);
+  }
 
   if (!code) {
-    // TODO: Run here
-    printf("%s\n", runtime.db_name);
+    process_packets(&runtime);
   }
 
-  if (code) {
+  // Блок обработки ошибок
+  if (code == EINVAL || runtime.help) {
     help();
-    code += (code < 0);
+  } else if (code == EBADF) {
+    fprintf(stderr, "Error opening file: %s\n", runtime.filename);
+  } else if (code == ENOKEY) {
+    fprintf(stderr, "Error reading rules from file: %s\nBad data\n", runtime.filename);
+  } else if (code == EPROTO) {
+    fprintf(stderr, "Error processing packets from stdin: %s\nBad data\n", runtime.filename);
   }
 
+  if (runtime.rules) free(runtime.rules);
   return code;
 }
