@@ -9,6 +9,7 @@ int print_rules(runtime_t *runtime);
 int process_packets(runtime_t *runtime);
 int get_packet(packet_t *packet, char *string);
 int match_packet(rule_t *rule, packet_t *packet);
+int protocols(char *string);
 void help();
 
 #endif

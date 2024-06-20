@@ -1,11 +1,14 @@
-# Rules from intership
-10.0.1.11/32:0  1.1.1.1/32:0    6   ACCEPT
-10.0.2.12/32:0  1.1.1.1/32:0 	6   DROP
-10.0.2.12/32:0  8.8.8.8/32:0 	6   ACCEPT
+# This is modified firewall rules file with ports (in any order)
+# Rules placed one per line
+# Comments must start by # symbol
 
-10.0.3.13/32:0  0.0.0.0/0:0     6   ACCEPT
-0.0.0.0/0:0     1.2.3.4/32:0 	17  DROP
-0.0.0.0/0:0     1.2.3.4/32:0	0	ACCEPT
+src: 192.168.1.0/24                 dst: 192.168.2.0/24    dport: 25 	proto: tcp 	=> ACCEPT
+src: 192.168.1.2    sport: 0      	dst: 10.0.1.1    dport: 80   proto: tcp 	=> DROP
+src: 192.168.1.10   sport: 23500 	dst: 192.168.2.0/24 	dport: 53   proto: tcp	=> ACCEPT
 
-0.0.0.0/0:0       10.0.9.1/32:0 6	DROP
-10.0.5.0/24:0     0.0.0.0/0:0   0   ACCEPT
+src: 192.168.2.0/24 									=> ACCEPT   sport: 25
+                    dst: 10.0.1.1 	proto: udp	=> DROP
+                    dst: 10.0.1.1				=> ACCEPT   dport: 2345
+
+                    dst: 10.0.9.1	proto: tcp	=> DROP     dport: 2612 sport: 4532
+src: 192.168.1.0/24 							    => ACCEPT   sport: 0    dport: 0

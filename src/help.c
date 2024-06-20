@@ -9,6 +9,5 @@ keys options:\n\
 -f, --file  - FW rules file name\n\
 -p, --print - print FW rules from rules file before processing\n\
 -h, --help  - this help\n\
-Example: cat traffic_dump.txt | firewall -f rules1.fw\n"
-  );
+Example: cat traffic_dump.txt | firewall -f rules1.fw\n");
 }

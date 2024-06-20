@@ -2,13 +2,10 @@
 #define RULE_H
 
 #include <stdint.h>
+
 #include "packet.h"
 
-typedef enum {
-  none = 0,
-  accept,
-  drop
-} action_t;
+typedef enum { none = 0, accept, drop } action_t;
 
 typedef struct {
   uint16_t id;

@@ -5,7 +5,7 @@ test_dir = tests
 build_dir = build
 
 # Flags
-DEBUG = -g
+DEBUG =
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra --std=c11 -I$(inc_dir) $(DEBUG)
 LDFLAGS =
@@ -18,9 +18,9 @@ test_sources = $(wildcard $(test_dir)/*.c)
 test_objects = $(patsubst %.c, %.o, $(test_sources))
 
 # Targets
-.PHONY: all clean
+.PHONY: all clean rebuild
 
-all: $(target)
+all: $(target) generator
 
 $(build_dir)/$(src_dir)/%.o: $(src_dir)/%.c
 	@mkdir -p $(build_dir)/$(src_dir)
@@ -33,6 +33,16 @@ $(build_dir)/$(test_dir)/%.o: $(test_dir)/%.c
 $(target): $(objects)
 	$(CC) $(LDFLAGS) $^ -o $(target)
 
+debug: DEBUG = -g
+debug: rebuild
+
+rebuild: clean all
+
+generator: gen/generator.c
+	$(CC) $(CFLAGS) $< -o $@
+
 clean:
+	@echo "Making clean"
 	@rm -rf build/*
 	@rm -rf $(target)
+	@rm -rf generator
