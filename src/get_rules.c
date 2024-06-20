@@ -30,7 +30,7 @@ int get_rules(runtime_t *runtime) {
 
   while(!code && fscanf(file, "%[^\n]", buf) != EOF) {
     file->_IO_read_ptr += 1;
-    // Пропускаем строку-комментарий
+    // Пропускаем строки-комментарии и пустые строки
     if(buf[0] == '#' || buf[0] == 0) {
       continue;
     }

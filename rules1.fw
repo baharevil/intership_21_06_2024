@@ -1,0 +1,9 @@
+# This is firewall rules file
+# Rules placed one per line
+# Comments must start by # symbol
+# Format: SRC/CIDR:SRC_PORT DST/CIDR:DST_PORT PROTO ACTION
+# Example: 0.0.0.0/0:0  0.0.0.0/0:0  0   ACCEPT
+
+192.168.1.0/24:0    192.168.1.0/24:0  17    DROP
+192.168.1.0/24:0    192.168.1.0/24:0  6     ACCEPT
+0.0.0.0/0:0         0.0.0.0/0:0       0     ACCEPT

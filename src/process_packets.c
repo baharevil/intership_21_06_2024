@@ -26,13 +26,13 @@ int process_packets(runtime_t *runtime) {
 
   while (!code && scanf("%[^\n]", buf) != EOF) {
     stdin->_IO_read_ptr++;
-    // Пропускаем пустые строки
-    if(buf[0] == 0) {
+    // Пропускаем строки-комментарии и пустые строки
+    if(buf[0] == '#' || buf[0] == 0) {
       continue;
     }
     matched = 0;
     get_packet(packet, buf);
-    printf("%hhu.%hhu.%hhu.%hhu %hhu.%hhu.%hhu.%hhu %hu %hu %hhu",
+    printf("%hhu.%hhu.%hhu.%hhu   \t %hhu.%hhu.%hhu.%hhu   \t%-5hu %-5hu %-2hhu",
       packet->src.octet1,
       packet->src.octet2,
       packet->src.octet3,
@@ -49,9 +49,13 @@ int process_packets(runtime_t *runtime) {
       if (match_packet(&runtime->rules[i], packet))
         matched = runtime->rules[i].id;
     }
-    // TODO: if(!matched)
-    printf("   -   %s by id: %hu\n", (runtime->rules[matched].action == 1) ? "ACCEPTED" : "DROPPED", matched + 1);
-    
+
+    if(matched)
+      printf("   -   %-8s by id: %hu\n",
+              (runtime->rules[matched - 1].action == 1) ? "ACCEPTED" : "DROPPED", matched);
+    else
+      printf("   -   DROPPED  by POLICY DROP\n");
+
     memset(packet, 0, sizeof(packet_t));
   };
 

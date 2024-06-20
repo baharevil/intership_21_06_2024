@@ -3,7 +3,7 @@
 void help() {
   printf(
       "\
-Processing stdin with firewall rules .\n\
+Processing stdin with firewall rules.\n\
 Usage: firewall [key] [fw_rules_file]...\n\
 keys options:\n\
 -f, --file  - FW rules file name\n\
