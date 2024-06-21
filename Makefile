@@ -41,6 +41,9 @@ rebuild: clean all
 generator: gen/generator.c
 	$(CC) $(CFLAGS) $< -o $@
 
+valgrind: firewall
+	valgrind --tool=memcheck --leak-check=yes ./firewall --file rules2.fw < dump2.txt
+
 clean:
 	@echo "Making clean"
 	@rm -rf build/*

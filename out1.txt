@@ -1,0 +1,10 @@
+id: 1   src: 10.0.1.11/32:0         	dst: 1.1.1.1/32:0         	proto: 6  action: ACCEPT
+id: 2   src: 10.0.2.12/32:0         	dst: 1.1.1.1/32:0         	proto: 6  action: DROP
+id: 3   src: 10.0.2.12/32:0         	dst: 8.8.8.8/32:0         	proto: 6  action: ACCEPT
+id: 4   src: 10.0.3.13/32:0         	dst: 0.0.0.0/0:0         	proto: 0  action: ACCEPT
+id: 5   src: 0.0.0.0/0:0         	dst: 1.2.3.4/32:0         	proto: 17 action: DROP
+id: 6   src: 0.0.0.0/0:0         	dst: 1.2.3.4/32:0         	proto: 0  action: ACCEPT
+id: 7   src: 0.0.0.0/0:0         	dst: 10.0.9.1/32:0         	proto: 6  action: DROP
+id: 8   src: 10.0.5.0/24:0         	dst: 0.0.0.0/0:0         	proto: 0  action: ACCEPT
+10.0.1.12     	 1.1.1.1       	 14640      5000       6    -   DROPPED  by POLICY DROP
+1.1.1.1     	 10.0.1.12      	 5000       14640      6    -   DROPPED  by POLICY DROP
